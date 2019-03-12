@@ -32,7 +32,10 @@ function tambah($data) {
 				VALUES
 				('$nrp', '$nama', '$email', '$jurusan', '$gambar')";
 
-	return mysqli_query($conn, $query);
+	// echo mysqli_query($conn, $query);
+	mysqli_query($conn, $query);
+
+	return mysqli_affected_rows($conn);
 }
 
 function upload() {
@@ -90,21 +93,13 @@ function ubah($data) {
 	$jurusan = htmlspecialchars($data["jurusan"]);
 
 	if ($_FILES['gambar']['error'] === 4) {
+		global $gambarLama;
 		$gambar = $gambarLama;
-	}
-	$ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
-	$ekstensiGambar = explode('.', $namaFile);
-	$ekstensiGambar = strtolower(end($ekstensiGambar));
-	if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
 		echo "<script>
-			alert('yang anda upload bukan gambar');
+			alert('gambar tak diganti');
 		</script>";
-		return false;
-	} elseif ($ukuranFile > 1000000) {
-		echo "<script>
-			alert('ukuran gambar terlalu besar');
-		</script>";
-		return false;
+	} else {
+		$gambar = upload();
 	}
 
 	$query = "UPDATE mahasiswa SET 
@@ -115,10 +110,7 @@ function ubah($data) {
 				gambar = '$gambar'
 				WHERE id = $id;
 			";
-
 	mysqli_query($conn, $query);
-	
-
 	return mysqli_affected_rows($conn);
 }
 

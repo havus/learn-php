@@ -11,7 +11,7 @@ if (isset($_POST["submit"])) {
 	
 
 	// cek keberhasilan
-	if (ubah($_POST) > 0) {
+	if (ubah($_POST) >= 0) {
 		echo "
 		<script>
 			alert('DATA BERHASIL DIUBAH!');
