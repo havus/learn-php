@@ -131,10 +131,30 @@ function registrasi($data) {
 	$password =	mysqli_real_escape_string($conn, $data["password"]);
 	$password2 = mysqli_real_escape_string($conn, $data["password2"]);
 
-	// cek konfirmasi password
-	if ($password !== $password2) {
-		echo "<script>alert('kopnfirmasi password tidak sesuai!');</script>";
+	// cek ketersediaan username
+	$result = mysqli_query($conn, "SELECT username FROM user WHERE username = '$username'");
+
+	if (mysqli_fetch_assoc($result)) {
+		echo "<script>
+			alert('Username sudah terdaftar');
+		</script>";
 		return false;
 	}
-}
 
+	// cek konfirmasi password
+	if ($password !== $password2) {
+		echo "<script>alert('konfirmasi password tidak sesuai!');</script>";
+		return false;
+	} 
+
+	// mengenkripsi password
+	$password = password_hash($password, PASSWORD_DEFAULT);
+
+	// menambahkan user baru ke database
+	$query = "INSERT INTO user (username, password) 
+				VALUES
+				('$username', '$password')";
+	mysqli_query($conn, $query);
+
+	return mysqli_affected_rows($conn);
+}
