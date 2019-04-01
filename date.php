@@ -1,5 +1,6 @@
 <?php 
 	echo date("l", mktime(0,0,0,3,27,1998))
+	
 ?>
 
 <br>

@@ -16,4 +16,18 @@
 
 // 5. berapa tiket yang terjual bulan feb 2019 seribu batu
 // 6. Tampilkan tgl pemasukan tertinggi di seribu batu
+function tes(){ //jadikan looping function scope agar block scope
+for($i = 0; $i < 10; $i++) {
+    echo $i;
+    // php sekarang tidak block scope
+    }
+}
+tes();
+echo($i);
 
+function coba() {
+    $z = 12;
+    echo($z);
+}
+coba();
+echo($z);
