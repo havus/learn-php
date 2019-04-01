@@ -5,7 +5,6 @@ if (isset($_POST["submit"])) {
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-
     $result = mysqli_query($conn, "SELECT * FROM user WHERE username = '$username'");
 
     if( mysqli_num_rows($result) === 1 ) {
@@ -17,6 +16,7 @@ if (isset($_POST["submit"])) {
             exit;
         }
     }
+    $error = true;
 }
 
 
@@ -31,6 +31,11 @@ if (isset($_POST["submit"])) {
 
 
     <h1>Halaman Login</h1>
+
+<?php if( isset($error) ) :?>
+    <p style="color: red; font-style: italic;">Username / Password salah</p>
+<?php endif ?>    
+
 
     <form action="" method="POST">
         <ul>
