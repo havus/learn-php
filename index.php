@@ -1,6 +1,13 @@
 <?php 
+session_start();
+
+if( !isset($_SESSION["login"]) ) {
+    header("Location: login2.php");
+    exit;
+}
+
 require('functions.php');
-$mahasiswa = query("SELECT * FROM mahasiswa");
+$mahasiswa = query("SELECT * FROM mahasiswa ");
 
 if (isset($_POST['cari'])) {
     $mahasiswa = cari($_POST["keyword"]);
@@ -23,6 +30,7 @@ if (isset($_POST['cari'])) {
 <body>
 
     <h1>Daftar Mahasiswa</h1>
+    <a href="logout.php">LOGOUT</a>
 
     <br>
     <form action="" method="POST">

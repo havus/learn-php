@@ -1,6 +1,6 @@
 <?php 
 // koneksi ke database
-$conn = mysqli_connect("localhost", "root", "php123", "phpdasar");
+$conn = mysqli_connect("localhost", "root", "root", "phpdasar");
 
 
 function query($query) {

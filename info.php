@@ -51,4 +51,10 @@ function fix($data) {
     };
 }
     
-echo fix($data);
+// echo fix($data);
+
+
+echo 'My IP : '.$_SERVER['REMOTE_ADDR'];
+
+// print_r($_SERVER);
+print gethostbyaddr("127.0.0.1");
