@@ -7,13 +7,31 @@ if( !isset($_SESSION["login"]) ) {
 }
 
 require('functions.php');
-$mahasiswa = query("SELECT * FROM mahasiswa ");
 
+
+// pagination
+// $jumlahDataPerHalaman = 4;
+// $jumlahData = count(query("SELECT * FROM mahasiswa"));
+// $jumlahHalaman = ceil($jumlahData / $jumlahDataPerHalaman);
+// $halamanAktif = ( isset($_GET["page"]) ) ? $_GET["page"] : 1;
+// $limitData = ($halamanAktif - 1) * $jumlahDataPerHalaman;
+// $mahasiswa = query("SELECT * FROM mahasiswa LIMIT $limitData , $jumlahDataPerHalaman");
+// if (isset($_POST['cari'])) {
+//     $jumlahData = count(cari($_POST['keyword']));
+//     $keyword = $_POST['keyword'];
+    // $mahasiswa = mysqli_num_rows(mysqli_connect($conn, "SELECT * FROM mahasiswa
+//                     LIMIT $limitData , $jumlahDataPerHalaman
+//                     WHERE nama LIKE '%$keyword%' OR
+//                     nrp LIKE '%$keyword%' OR
+//                     email LIKE '%$keyword%' OR
+//                     jurusan LIKE '%$keyword%'"));
+//     echo "<pre>".print_r($mahasiswa,1)."</pre>";
+// }
+$mahasiswa = query("SELECT * FROM mahasiswa");
 if (isset($_POST['cari'])) {
+    // pencarian pagination
     $mahasiswa = cari($_POST["keyword"]);
-    echo $_POST['keyword'];
 }
-
 
 ?>
 
@@ -34,13 +52,16 @@ if (isset($_POST['cari'])) {
 
     <br>
     <form action="" method="POST">
-        <input type="text" name="keyword" size="30" autofocus placeholder="cari" autocomplete="off">
-        <button name="cari" type="submit">SEARCH</button>
+        <input type="text" name="keyword" size="30" autofocus placeholder="cari" autocomplete="off" id="keyword">
+        <button name="cari" type="submit" id="tombol-cari">SEARCH</button>
     </form>
     <br>
     <a href="tambah.php">Tambah data</a>
     <br><br>
 
+    
+    <br><br>
+<div id="container">
     <table border="1" cellpadding="10" cellspacing="0">
 
         <tr>
@@ -53,7 +74,8 @@ if (isset($_POST['cari'])) {
             <th>Jurusan</th>
         </tr>
 
-        <?php $i = 1; ?>
+        <?php //$i = ($halamanAktif * $jumlahDataPerHalaman) - ($jumlahDataPerHalaman - 1);
+        $i = 1;?>
         <?php foreach ($mahasiswa as $mhs) : ?>
         <tr>
             <td>
@@ -84,10 +106,10 @@ if (isset($_POST['cari'])) {
 
 
     </table>
+</div>
 
 
-
-
+<script src="js/script.js"></script>
 </body>
 
 </html>
